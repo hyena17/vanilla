@@ -9,13 +9,11 @@ import amazon.pageobjects.HomePagePO;
 import amazon.pageobjects.ProductPO;
 import amazon.pageobjects.ResultsPO;
 import com.typesafe.config.Config;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,10 +55,9 @@ public class TestSandbox {
         productPO.isAboutSectionPresent();
         productPO.scrollToAboutToSection();
         productPO.printAboutSection();
-
     }
 
-    @AfterTest
+    @AfterEach
     public void afterTest() {
         driver.quit();
     }
