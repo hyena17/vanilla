@@ -27,6 +27,7 @@ public class TestSandbox {
     public void beforeTest() {
         driver.get(HOME_PAGE_URL);
     }
+
     @AfterEach
     public void afterTest() {
         driver.quit();
@@ -58,11 +59,10 @@ public class TestSandbox {
         resultPO.clickSecondPosition();
         resultPO.focusOnRecentOpenedProduct();
         ProductPO productPO = resultPO.expectProductPO();
-        productPO.isAboutSectionPresent();
+        assertEquals(true, productPO.isAboutSectionPresent());
         productPO.scrollToAboutToSection();
         productPO.printAboutSection();
     }
-
 
 
 }
