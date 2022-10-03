@@ -25,4 +25,11 @@ For easiest way to getting started, extract this project and open it from Intell
 
 Tip: Do remember to update this readme file for anything else that you think needs updating here!
 
+## Instructions
+
+- There is a script startScript.sh.
+- Windows: ```sh startScript.sh``` 
+- Linux:  ```./startScript.sh```
+
 ## Success
+
