@@ -10,6 +10,7 @@ import amazon.pageobjects.ProductPO;
 import amazon.pageobjects.ResultsPO;
 import com.typesafe.config.Config;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,20 @@ public class TestSandbox {
     private static final String HOME_PAGE_URL = config.getString("HOME_PAGE_URL");
     private WebDriver driver = DriverFactory.getDriver();
 
+    @BeforeEach
+    public void beforeTest() {
+        driver.get(HOME_PAGE_URL);
+    }
+    @AfterEach
+    public void afterTest() {
+        driver.quit();
+    }
+
     @Tag("smokeTest")
     @DisplayName("This test is for demo purpose only to show that the basic code works." +
             "You have to use the best practices that you normally use to design your tests")
     @Test
     void assertThatHomePageTitleIsCorrect() {
-        driver.get(HOME_PAGE_URL);
         assertEquals("Amazon.com. Spend less. Smile more.", driver.getTitle());
     }
 
@@ -35,9 +44,6 @@ public class TestSandbox {
     @DisplayName("This test verifies E2E flow from home page through seach and product page")
     @Test
     void assertCustomer() {
-        driver.manage().window().maximize();
-        driver.get(HOME_PAGE_URL);
-
         HomePagePO homepage = new HomePagePO(driver);
         homepage.clickOnHamburguerMenu();
         HamburguerMenuPO hamburgerMenu = homepage.expectHamburguerMenuPO();
@@ -57,9 +63,6 @@ public class TestSandbox {
         productPO.printAboutSection();
     }
 
-    @AfterEach
-    public void afterTest() {
-        driver.quit();
-    }
+
 
 }
