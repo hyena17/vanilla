@@ -40,3 +40,11 @@ services:
             - "4442:4442"
             - "4443:4443"
             - "4444:4444"
+    test:
+        build: .
+        depends_on:
+            - selenium-hub
+            - firefox
+            - edge
+            - chrome
+
