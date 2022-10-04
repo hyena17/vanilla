@@ -1,5 +1,6 @@
 package amazon.pageobjects;
 
+import amazon.helper.Wait;
 import amazon.pageobjects.core.BasePageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,12 +27,13 @@ public class HamburgerSubMenuPO extends BasePageObject {
 
     public void clickOnSubsectionProduct(String product, String subSectionTitle) {
         By xpath = By.xpath("//div[text()='" + subSectionTitle + "']//parent::li//parent::ul//a[text()='" + product + "']");
-        WebElement subSection = driver.findElement(xpath);
+        Wait.waitForElementByXpath(wait, xpath);
+        WebElement subSection = getWebDriver().findElement(xpath);
         subSection.click();
     }
 
     public FiltersPO expectFiltersPO(){
-        return new FiltersPO(driver);
+        return new FiltersPO(getWebDriver());
     }
 
 }

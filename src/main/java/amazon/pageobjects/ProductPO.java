@@ -26,17 +26,17 @@ public class ProductPO extends BasePageObject {
     }
 
     public boolean isAboutSectionPresent() {
-        List<WebElement> dynamicElement = driver.findElements(aboutToXpath);
+        List<WebElement> dynamicElement = getWebDriver().findElements(aboutToXpath);
         return dynamicElement.size() > 0 ? true : false;
     }
 
     public void scrollToAboutToSection() {
-        WebElement element = driver.findElement(aboutToXpath);
-        Scrolldown.scrollDownToElement(element, driver);
+        WebElement element = getWebDriver().findElement(aboutToXpath);
+        Scrolldown.scrollDownToElement(element, getWebDriver());
     }
 
     public void printAboutSection() {
-        List<WebElement> aboutContents = driver.findElements(By.xpath("//h1[text()=' About this item ']/parent::div//span"));
+        List<WebElement> aboutContents = getWebDriver().findElements(By.xpath("//h1[text()=' About this item ']/parent::div//span"));
         System.out.println("About this Item:");
         Printer.printElements(aboutContents);
     }

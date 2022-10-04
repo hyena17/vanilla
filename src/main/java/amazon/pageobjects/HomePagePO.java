@@ -1,4 +1,5 @@
 package amazon.pageobjects;
+import amazon.helper.Wait;
 import amazon.pageobjects.core.BasePageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,13 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class HomePagePO extends BasePageObject {
-	@FindBy(id="nav-hamburger-menu")
-	private WebElement hamburguerMenu;
+
+    private final String LOCATOR_HAMBURGER_MENU_ID = "nav-hamburger-menu";
+    @FindBy(id="nav-hamburger-menu")
+	private WebElement hamburgerMenu;
     public HomePagePO(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -20,15 +20,16 @@ public class HomePagePO extends BasePageObject {
 
     @Override
     public void waitForLoadedPage(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nav-hamburger-menu")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(LOCATOR_HAMBURGER_MENU_ID)));
     }
 
-    public void clickOnHamburguerMenu() {
-		hamburguerMenu.click();
+    public void clickOnHamburgerMenu() {
+        Wait.waitForElementByXpath(wait, By.id(LOCATOR_HAMBURGER_MENU_ID));
+		hamburgerMenu.click();
 	}
 
-    public HamburguerMenuPO expectHamburguerMenuPO(){
-        return new HamburguerMenuPO(driver);
+    public HamburguerMenuPO expectHamburgerMenuPO(){
+        return new HamburguerMenuPO(getWebDriver());
     }
 
 

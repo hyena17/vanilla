@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HamburguerMenuPO extends BasePageObject {
-    private final String BASE_LOCATOR = "//div[text()='help & settings']";
+    private final String BASE_LOCATOR = "//div[@id='hmenu-canvas']";
 
     public HamburguerMenuPO(WebDriver driver) {
         super(driver);
@@ -26,13 +26,13 @@ public class HamburguerMenuPO extends BasePageObject {
     }
 
     public void clickOnSubsection(String section, String subSection) {
-        WebElement element = driver
+        WebElement element = getWebDriver()
                 .findElement(By.xpath("//div[text()='" + subSection + "']"));
         element.click();
     }
 
     public HamburgerSubMenuPO expectHamburgerSubMenuPO(){
-        return new HamburgerSubMenuPO(driver);
+        return new HamburgerSubMenuPO(getWebDriver());
     }
 
 }

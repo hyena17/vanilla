@@ -1,5 +1,7 @@
 package amazon.pageobjects;
 
+import amazon.helper.Sleep;
+import amazon.helper.Wait;
 import amazon.pageobjects.core.BasePageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,28 +41,45 @@ public class ResultsPO extends BasePageObject {
         String sortByTypeLocator = "//a[text()='" + type + "']";
         By xpathSortBy = By.xpath(sortByTypeLocator);
         wait.until(ExpectedConditions.visibilityOfElementLocated(xpathSortBy));
-        WebElement sortBy = driver.findElement(xpathSortBy);
+        WebElement sortBy = getWebDriver().findElement(xpathSortBy);
         sortBy.click();
     }
 
     public void clickSecondPosition() {
+        waitForProductInPosition("2");
         clickProductOnPosition("2");
     }
 
+    public void waitForProductInPosition(String position){
+        String productLocator = "//div[@data-index='"+position+"' and @data-component-type='s-search-result']";
+        By xpathProduct = By.xpath(productLocator);
+        Wait.waitForElementByXpath(wait, xpathProduct);
+    }
+
     public void focusOnRecentOpenedProduct(){
-        ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs2.get(1));
+        int count = 0;
+        int MAX_ITERATIONS = 5;
+        while(count++<MAX_ITERATIONS){
+            ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
+            if(tabs.size()>1){
+                break;
+            }
+            Sleep.sleep(1000);
+        }
+
+        ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
+        getWebDriver().switchTo().window(tabs.get(1));
     }
     public void clickProductOnPosition(String position) {
         String productLocator = "//div[@data-index='" + position + "' and @data-component-type='s-search-result']";
         By xpathProduct = By.xpath(productLocator);
-        WebElement product = driver.findElement(xpathProduct);
+        WebElement product = getWebDriver().findElement(xpathProduct);
         product.click();
 
     }
 
     public ProductPO expectProductPO(){
-        return new ProductPO(driver);
+        return new ProductPO(getWebDriver());
     }
 
 }

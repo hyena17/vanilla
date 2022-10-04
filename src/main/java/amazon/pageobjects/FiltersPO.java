@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class FiltersPO extends BasePageObject {
 
-    private final String LOCATOR_BASE_IMAGE = "//img[@alt='Electronics']";
+    private final String LOCATOR_BASE_IMAGE = "//img[@alt='TV store']";
 
     public FiltersPO(WebDriver driver) {
         super(driver);
@@ -31,17 +31,17 @@ public class FiltersPO extends BasePageObject {
         String xpath = "//span[text()='%s']/parent::div/following-sibling::ul//span[text()='%s']";
         By xpathElement = By.xpath(String.format(xpath, category, checkboxTitle));
 
-        WebElement element = driver.findElement(xpathElement);
+        WebElement element = getWebDriver().findElement(xpathElement);
         element.click();
     }
 
     public void scrollDownToElementByText(String text) {
-        WebElement element = driver.findElement(By.xpath("//span[text()='" + text + "']"));
-        Scrolldown.scrollDownToElement(element, driver);
+        WebElement element = getWebDriver().findElement(By.xpath("//span[text()='" + text + "']"));
+        Scrolldown.scrollDownToElement(element, getWebDriver());
     }
 
     public ResultsPO expectResultsPO() {
-        return new ResultsPO(driver);
+        return new ResultsPO(getWebDriver());
     }
 
 }

@@ -24,12 +24,13 @@ public class TestSandbox {
     private WebDriver driver = DriverFactory.getDriver();
 
     @BeforeEach
-    public void beforeTest() {
+    public void beforeMethod() {
         driver.get(HOME_PAGE_URL);
+        driver.manage().window().maximize();
     }
 
     @AfterEach
-    public void afterTest() {
+    public void afterMethod() {
         driver.quit();
     }
 
@@ -38,7 +39,7 @@ public class TestSandbox {
             "You have to use the best practices that you normally use to design your tests")
     @Test
     void assertThatHomePageTitleIsCorrect() {
-        assertEquals("Amazon.com. Spend less. Smile more.", driver.getTitle());
+        assertEquals("Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in", driver.getTitle());
     }
 
     @Tag("smokeTest")
@@ -46,14 +47,14 @@ public class TestSandbox {
     @Test
     void assertCustomer() {
         HomePagePO homepage = new HomePagePO(driver);
-        homepage.clickOnHamburguerMenu();
-        HamburguerMenuPO hamburgerMenu = homepage.expectHamburguerMenuPO();
+        homepage.clickOnHamburgerMenu();
+        HamburguerMenuPO hamburgerMenu = homepage.expectHamburgerMenuPO();
         hamburgerMenu.clickOnTvAppliancesAndElectronicsInsideShopByCategory();
         HamburgerSubMenuPO hamburgerSubsectionMenu = hamburgerMenu.expectHamburgerSubMenuPO();
         hamburgerSubsectionMenu.clickOnTelevisionInsideTvAudiosCamera();
-        FiltersPO resultsPO = hamburgerSubsectionMenu.expectFiltersPO();
-        resultsPO.clickOnSamsungInsideBrands();
-        ResultsPO resultPO = resultsPO.expectResultsPO();
+        FiltersPO filtersPO = hamburgerSubsectionMenu.expectFiltersPO();
+        filtersPO.clickOnSamsungInsideBrands();
+        ResultsPO resultPO = filtersPO.expectResultsPO();
         resultPO.clickFilter();
         resultPO.sortByHighToLow();
         resultPO.clickSecondPosition();

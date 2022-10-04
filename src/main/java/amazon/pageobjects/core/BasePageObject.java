@@ -7,12 +7,16 @@ import java.time.Duration;
 
 public abstract class BasePageObject implements PageObject {
 
-    protected WebDriver driver;
+    private WebDriver driver;
     protected WebDriverWait wait;
     public BasePageObject(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         waitForLoadedPage();
+    }
+
+    public WebDriver getWebDriver(){
+        return driver;
     }
 
 }
